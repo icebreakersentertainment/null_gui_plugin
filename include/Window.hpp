@@ -10,6 +10,7 @@
 #include "Label.hpp"
 #include "Button.hpp"
 #include "MenuBar.hpp"
+#include "Rectangle.hpp"
 
 namespace ice_engine
 {
@@ -54,6 +55,15 @@ public:
 		return menuBarPtr;
 	}
 
+	virtual IRectangle* createRectangle(const glm::vec2& start, const glm::vec2& end, const Color& color) final
+	{
+		auto rectangle = std::make_unique<Rectangle>(start, end, color);
+		auto rectanglePtr = rectangle.get();
+		components_.push_back( std::move(rectangle) );
+
+		return rectanglePtr;
+	}
+
 	virtual void destroy(const ILabel* label) override
 	{
 		components_.erase(
@@ -76,6 +86,20 @@ public:
 				components_.end(),
 				[button](const std::unique_ptr<IComponent>& c) {
 					return c.get() == button;
+				}
+			),
+			components_.end()
+		);
+	}
+
+	virtual void destroy(const IRectangle* rectangle) final
+	{
+		components_.erase(
+			std::remove_if(
+				components_.begin(),
+				components_.end(),
+				[rectangle](const std::unique_ptr<IComponent>& c) {
+					return c.get() == rectangle;
 				}
 			),
 			components_.end()
