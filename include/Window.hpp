@@ -27,7 +27,7 @@ public:
 	virtual ~Window() override = default;
 
 	virtual void tick(const float32 delta) override {};
-	
+
 	virtual ILabel* createLabel(const uint32 x, const uint32 y, const uint32 width, const uint32 height, const std::string label = std::string()) override
 	{
 		auto l = std::make_unique<Label>(x, y, width, height, label);
@@ -77,7 +77,7 @@ public:
 			components_.end()
 		);
 	}
-	
+
 	virtual void destroy(const IButton* button) override
 	{
 		components_.erase(
@@ -108,7 +108,12 @@ public:
 
 	virtual void setTitle(const std::string& title) override {};
 	virtual const std::string& getTitle() const  override { return title_; };
-    
+
+	virtual void setBackgroundAlpha(const float32 alpha) final
+			{
+
+			}
+
 private:
 	std::string title_;
 };

@@ -38,7 +38,17 @@ public:
 
 	virtual void render() override {};
 	virtual void tick(const float32 delta) override {};
-	
+
+	virtual void setStyle(const Style& style) final
+			{
+
+			}
+
+	virtual const Style& getStyle() const final
+			{
+				return style_;
+			}
+
 	virtual IWindow* createWindow(const uint32 x, const uint32 y, const uint32 width, const uint32 height, const std::string title = std::string()) override
 	{
 		auto window = std::make_unique<Window>(x, y, width, height, title);
@@ -54,18 +64,20 @@ public:
 
 		return windows_.back().get();
 	}
-	
+
 	virtual bool processEvent(const graphics::WindowEvent& event) override { return false; };
 	virtual bool processEvent(const graphics::KeyboardEvent& event) override { return false; };
 	virtual bool processEvent(const graphics::MouseButtonEvent& event) override { return false; };
 	virtual bool processEvent(const graphics::MouseMotionEvent& event) override { return false; };
 	virtual bool processEvent(const graphics::MouseWheelEvent& event) override { return false; };
-	
+
 	// Implements the IEventListener interface
 	virtual bool processEvent(const graphics::Event& event) override { return false; };
 
 private:
 	std::vector<std::unique_ptr<IWindow>> windows_;
+
+	Style style_;
 };
 
 }

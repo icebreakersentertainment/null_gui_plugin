@@ -21,17 +21,26 @@ public:
 
 	virtual void render() override {};
 	virtual void tick(const float32 delta) override {};
-	
+
+	virtual void setStyle(const Style& style) override
+			{
+			}
+
+	virtual const Style& getStyle() const override
+			{
+				return style_;
+			}
+
 	virtual void setPosition(const uint32 x, const uint32 y) override {};
 	virtual glm::ivec2 getPosition() const override { return {}; };
-	
+
 	virtual void setDimensions(const uint32 width, const uint32 height) override {};
 	virtual glm::ivec2 getDimensions() const  override { return {}; };
-	
+
 	virtual void addComponent(IComponent* component) override {};
 	virtual void removeComponent(IComponent* component) override {};
 	virtual void removeAllComponents() override {};
-	
+
 protected:
 	virtual ~Component() override = default;
 
@@ -40,6 +49,8 @@ protected:
 	uint32 width_ = 0;
 	uint32 height_ = 0;
 	bool visible_ = true;
+
+	Style style_;
 
 	std::vector<std::unique_ptr<IComponent>> components_;
 
